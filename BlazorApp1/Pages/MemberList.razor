@@ -1,0 +1,134 @@
+﻿@page "/members"
+
+<h2 class="text-center">MEMBERS LISTS</h2>
+
+<div class="d-flex justify-content-between my-2">
+    <button @onclick="ShowForm" class="btn btn-primary mr-2">Add Member</button>
+    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID#</th>
+            <th>Phase</th>
+            <th>Block</th>
+            <th>Lot</th>
+            <th>Street</th>
+            <th>LName</th>
+            <th>FName</th>
+            <th>M.I</th>
+            <th>Mobile#</th>
+            <th>Email</th>
+            <th>Lot Size</th>
+            <th>Move-in</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Phase 1</td>
+            <td>Block 1</td>
+            <td>Lot 1</td>
+            <td>Street 1</td>
+            <td>Doe</td>
+            <td>John</td>
+            <td>J.</td>
+            <td>1234567890</td>
+            <td>john.doe@example.com</td>
+            <td>100 sqm</td>
+            <td>01/01/2023</td>
+            <td>Edit</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Phase 2</td>
+            <td>Block 2</td>
+            <td>Lot 2</td>
+            <td>Street 2</td>
+            <td>Smith</td>
+            <td>Jane</td>
+            <td>S.</td>
+            <td>0987654321</td>
+            <td>jane.smith@example.com</td>
+            <td>200 sqm</td>
+            <td>02/02/2023</td>
+            <td>Edit</td>
+        </tr>
+    </tbody>
+</table>
+
+
+@if (showForm)
+{
+    <div class="modal show d-block" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Member</h5>
+                    <button type="button" class="btn-close" @onclick="HideForm"></button>
+                </div>
+                <div class="modal-body">
+                    <EditForm Model="newMember" OnValidSubmit="HandleValidSubmit">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+
+                        <InputText id="ID" @bind-Value="newMember.Id" class="form-control" placeholder="ID#" required />
+                        <InputText id="Phase" @bind-Value="newMember.Phase" class="form-control" placeholder="Phase" required />
+                        <InputText id="Block" @bind-Value="newMember.Block" class="form-control" placeholder="Block" required />
+                        <InputText id="Lot" @bind-Value="newMember.Lot" class="form-control" placeholder="Lot" required />
+                        <InputText id="Street" @bind-Value="newMember.Street" class="form-control" placeholder="Street" required />
+                        <InputText id="LName" @bind-Value="newMember.LName" class="form-control" placeholder="LName" required />
+                        <InputText id="MI" @bind-Value="newMember.MI" class="form-control" placeholder="MI" required />
+                        <InputText id="Mobile" @bind-Value="newMember.Mobile" class="form-control" placeholder="Mobile" required />
+                        <InputText id="Email" @bind-Value="newMember.Email" class="form-control" placeholder="Email" required />
+                        <InputText id="LotSize" @bind-Value="newMember.LotSize" class="form-control" placeholder="LotSize" required />
+                        <InputText id="Movein" @bind-Value="newMember.Movein" class="form-control" placeholder="Move-In" required />
+                        <InputText id="Action" @bind-Value="newMember.Action" class="form-control" placeholder="Action" required />
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private bool showForm = false;
+    private Member newMember = new Member();
+
+    private void ShowForm()
+    {
+        showForm = true;
+    }
+
+    private void HideForm()
+    {
+        showForm = false;
+    }
+
+    private void HandleValidSubmit()
+    {
+        // Handle form submission here
+        showForm = false;
+    }
+
+    public class Member
+    {
+        public string Id { get; set; }
+        public string Phase { get; set; }
+        public string Block { get; set; }
+        public string Lot { get; set; }
+        public string Street { get; set; }
+        public string LName { get; set; }
+        public string FName { get; set; }
+        public string MI { get; set; }
+        public string Mobile { get; set; }
+        public string Email { get; set; }
+        public string LotSize { get; set; }
+        public string Movein { get; set; }
+        public string Action { get; set; }
+    }
+}
